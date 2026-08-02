@@ -1,4 +1,5 @@
-import typing
+
+from dataclasses import asdict, dataclass, fields
 from typing import NamedTuple
 class Coordinate(NamedTuple):
     lat:float
@@ -9,5 +10,16 @@ class Coordinate(NamedTuple):
         we='E' if self.lon>=0 else 'W'
         return f'{abs(self.lat):.1f}°{ns}, {abs(self.lon):.1f}°{we}'
 
-print(issubclass(Coordinate,tuple))
-print(issubclass(Coordinate, typing.NamedTuple))
+
+@dataclass
+class Point:
+    x:int
+    y:int=0
+
+p=Point(10)
+p.y=20
+
+print(asdict(p))
+print([f.name for f in fields(p)])
+print([f.default for f in fields(p)])
+
